@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
+require('dotenv').config(); // 👈 Agrega esta línea al principio
 
 const app = express();
 const port = process.env.PORT || 3000; // Soporte para despliegue online
