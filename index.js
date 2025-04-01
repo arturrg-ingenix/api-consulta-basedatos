@@ -9,10 +9,10 @@ app.use(cors());
 
 // ✅ Configuración de la base de datos
 const connection = mysql.createConnection({
-  host: 'bbdd.ingenix.es',
-  user: 'ddb250008',
-  password: 'LP%vV7S.%%$4BF',
-  database: 'ddb250008',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
 // ✅ Conexión a la base de datos
