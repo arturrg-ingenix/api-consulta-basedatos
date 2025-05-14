@@ -193,6 +193,26 @@ app.delete('/proyecto/:nombre', (req, res) => {
   });
 });
 
+// 📍 Registrar fichaje en "RegistroHorario"
+app.post('/registro-horario', (req, res) => {
+  const { NombreEmpleado, Dia, Proyecto, Entrada1, Salida1, Estado, TipoFichaje } = req.body;
+
+  if (!NombreEmpleado || !Dia || !Proyecto || !Estado || !TipoFichaje) {
+    return res.status(400).json({ success: false, error: 'Faltan campos requeridos para el registro de horario' });
+  }
+
+  const query = `
+    INSERT INTO RegistroHorario (NombreEmpleado, Dia, Proyecto, Entrada1, Salida1, Estado, TipoFichaje)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+  `;
+
+  pool.query(query, [NombreEmpleado, Dia, Proyecto, Entrada1, Salida1, Estado, TipoFichaje], (error) => {
+    if (error) return res.status(500).json({ success: false, error: error.message });
+
+    res.json({ success: true });
+  });
+});
+
 // 📍 Registrar fichaje
 app.post('/fichaje', (req, res) => {
   const { email, tipo, proyecto, fecha } = req.body;
