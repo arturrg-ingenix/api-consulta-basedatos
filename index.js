@@ -13,11 +13,13 @@ app.use(express.json());               // Permitimos que el servidor reciba y pr
 
 // Configuración del pool de conexiones para MySQL
 const pool = mysql.createPool({
-  connectionLimit: 20,                 // Número máximo de conexiones simultáneas permitidas
+  connectionLimit: 1,                  // Número máximo de conexiones simultáneas permitidas (por limitación del servidor)
   host: 'bbdd.ingenix.es',             // Dirección del servidor MySQL
   user: 'ddb250008',                   // Usuario de la base de datos
   password: 'LP%vV7S.%%$4BF',          // Contraseña del usuario
   database: 'ddb250008',               // Nombre de la base de datos a la que conectarse
+  waitForConnections: true,            // Esperar si no hay conexiones libres
+  queueLimit: 0,                       // Número máximo de solicitudes en espera (0 = ilimitado)
 });
 
 // Prueba de conexión al pool para verificar que funciona correctamente
